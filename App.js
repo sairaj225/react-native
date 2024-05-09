@@ -27,7 +27,7 @@ export default function App() {
       ...currentCourseGoals
     ])
   }
-
+ 
   return (
     <View style={styles.appContainer}>
       <View style={styles.inputContainer}>
