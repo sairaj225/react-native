@@ -98,7 +98,4 @@ const styles = StyleSheet.create({
   goalItem: {
     color: 'white'
   }
-
-
-
 });
