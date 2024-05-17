@@ -34,6 +34,8 @@ const styles = StyleSheet.create({
       goalItem: {
         color: '#3C3633',
         padding: 10,
+        backgroundColor: '#FF9800',
+        borderRadius: 6
       },
 
       pressedItem: {

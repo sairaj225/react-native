@@ -11,6 +11,8 @@ import {
   Pressable
 } from 'react-native';
 
+import { StatusBar } from 'react-native';
+
 import { useState } from 'react';
 import GoalItem from './Components/GoalItem';
 import GoalInput from './Components/GoalInput';
@@ -51,9 +53,11 @@ export default function App() {
   }
  
   return (
+    <>
+    <StatusBar style="light"/>
     <View style={styles.appContainer}>
       <Button 
-        color="#5AB2FF"
+        color="#90D26D"
         title="Add Goal"
         onPress={addGoalButtonHandler}
       />
@@ -76,6 +80,7 @@ export default function App() {
         </FlatList>
       </View>
     </View>
+    </>
   );
 }
 
@@ -84,12 +89,15 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
     padding: 50,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
+    backgroundColor: "#2C7865"
   },
 
   
 
   goalsContainer: {
     flex: 5,
+    margin: 6,
+    padding: 6
   },
 });
