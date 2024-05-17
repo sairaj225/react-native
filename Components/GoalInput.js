@@ -2,7 +2,8 @@ import {
     View,
     TextInput,
     Button,
-    StyleSheet
+    StyleSheet,
+    Modal
 } from 'react-native';
 
 import { useState } from 'react';
@@ -22,15 +23,25 @@ function GoalInput(props) {
     }
 
     return (
-        <View style={styles.inputContainer}>
-            <TextInput 
-            style={styles.textInput}   
-            value={enteredText}
-            placeholder='add text here'
-            onChangeText={inputHandler}
-            />
-            <Button title="Add Goal" onPress={addGoal}/>
-        </View>
+        <Modal visible={props.visible} animationType='slide'>
+            <View style={styles.inputContainer}>
+                <TextInput 
+                style={styles.textInput}   
+                value={enteredText}
+                placeholder='add text here'
+                onChangeText={inputHandler}
+                />
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Button title="Add Goal" onPress={addGoal}/>
+                    </View>    
+                    <View style={styles.button}>
+                        <Button title="Cancel" onPress={props.closeModel} />
+                    </View> 
+                </View>
+            </View>
+        </Modal>
+        
     )
 };
 
@@ -40,20 +51,29 @@ const styles = StyleSheet.create({
 
     inputContainer: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         borderBottomWidth: 1,
         borderBottomColor: '#cccccc',
-        marginBottom: 24,
+        margin: 7,
         paddingBottom: 16
       },
     
       textInput: {
         borderWidth: 1,
         borderColor: '#cccccc',
-        width: '70%',
+        width: '80%',
         marginRight: 8,
         padding: 8
       },
+
+      buttonContainer: {
+        flexDirection: 'row',
+        margin: 10
+      },
+
+      button: {
+        width: '40%',
+        marginHorizontal: 7,
+      }
 });

@@ -7,7 +7,8 @@ import {
   Alert,
   Settings,
   ScrollView,
-  FlatList
+  FlatList,
+  Pressable
 } from 'react-native';
 
 import { useState } from 'react';
@@ -17,6 +18,8 @@ import GoalInput from './Components/GoalInput';
 export default function App() {
 
   const [courseGoals, setCourseGoals] = useState([]);
+  const [itemsCount, setItemsCount] = useState(0);
+  const [IsModelVisible, setIsModelVisible] = useState(false);
 
   function textInputHandler(enteredText) {
     setEnteredTextInput(enteredText);
@@ -24,20 +27,46 @@ export default function App() {
 
   function addGoalHandler(enteredTextInput) {
     if (enteredTextInput){
+      setItemsCount((curreCount) => curreCount + 1);
       setCourseGoals((currentCourseGoals) => [
-        {text: enteredTextInput, id: currentCourseGoals.length + 1}, 
+        {text: enteredTextInput, id: itemsCount}, 
         ...currentCourseGoals
-      ])
+      ]);
+      setIsModelVisible(false);
     }
+  }
+
+  function addGoalButtonHandler() {
+    setIsModelVisible(true);
+  }
+
+  function deleteItem(id) {
+    setCourseGoals(currentCourseGoals => {
+      return currentCourseGoals.filter((goal) => goal.id !== id);
+    })
+  }
+
+  function closeModel() {
+    setIsModelVisible(false);
   }
  
   return (
     <View style={styles.appContainer}>
-      <GoalInput textInputHandler={textInputHandler} addGoalHandler={addGoalHandler} />
+      <Button 
+        color="#5AB2FF"
+        title="Add Goal"
+        onPress={addGoalButtonHandler}
+      />
+      <GoalInput 
+        visible={IsModelVisible} 
+        textInputHandler={textInputHandler} 
+        addGoalHandler={addGoalHandler} 
+        closeModel={closeModel}
+        />
       <View style={styles.goalsContainer}>
         <FlatList data={courseGoals} renderItem={(goal) => 
             {
-              return <GoalItem text={goal.item.text} />
+              return <GoalItem text={goal.item.text} id={goal.item.id} deleteItem={deleteItem} />
             }
         }
         keyExtractor={(item, index) => {
